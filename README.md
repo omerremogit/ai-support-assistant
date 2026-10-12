@@ -19,7 +19,7 @@ of that work safely, and what it would save. The full context is in the
 - [x] Turn the company policy guide into business rules ([catalog](docs/02_business_rules.md))
 - [x] Sort request types by how much AI could handle ([matrix](docs/03_automation_matrix.md))
 - [x] Map the current and future process for 3 requests ([process maps](docs/04_process_maps.md))
-- [ ] Write the requirements document (BRD)
+- [x] Write the requirements document ([BRD](docs/05_requirements_BRD.md))
 - [ ] Write user stories and acceptance criteria (Jira)
 - [ ] Define success measures and test cases
 - [ ] Build the ROI model in Excel
