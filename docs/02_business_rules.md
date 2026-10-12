@@ -1,6 +1,6 @@
 # Business Rules Catalog
 
-**Project:** AI Customer Support Assistant  |  **Step 3 of 11**  |  **Version:** 1.0 (draft)
+**Project:** AI Customer Support Assistant  |  **Step 3 of 11**  |  **Version:** 1.1 (draft, issue 13 added)
 
 **Source:** Harbor & Thread agent guidelines (`guidelines.json` in the ABCD dataset, which calls the
 company "AcmeCorp"), checked against the required actions for each request type (`kb.json`) and the
@@ -203,6 +203,7 @@ handling is a draft for the BRD.
 | 10 | **Practice differs from policy.** RET-02 says to end the conversation when a return isn't allowed. In conversation 3592, the agent offered to escalate to a manager instead. | RET-02 | If agents bend the rules, customers will expect the AI to as well, and the documented policy isn't the real one. | Define an official path for declined requests (for example, a manager callback) and apply it everywhere. |
 | 11 | **Incomplete guidelines.** Delivery time changes, international shipping questions, and adding items to shipped orders for Bronze and Guest members have missing or placeholder steps. | ORD-06, ORD-08, MAC-05 | The AI can't follow a rule that doesn't exist. | Out of scope for the pilot until the policy is written. These requests go to a person. |
 | 12 | **"Convince the customer."** For price complaints, agents are told to convince the customer that price changes are out of their control. | DSP-01 | The AI must stay truthful and not pressure customers. | The assistant explains the pricing policy factually and doesn't argue. |
+| 13 | **Membership level taken from the customer.** In returns, order changes, promo codes, billing errors and subscription requests, agents ask the customer for their membership level instead of looking it up. *(Found while mapping the returns process in Step 5.)* | RET-01, ORD-01, ORD-04 to ORD-07, DSP-05 to DSP-07, SUB-03, SUB-04 | Gold members get the most generous treatment, so a customer could simply say "I'm Gold." Same pattern as issue 5. | The assistant reads the membership level from the account and never asks the customer for it. |
 
 ---
 

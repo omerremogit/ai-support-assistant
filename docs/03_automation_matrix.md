@@ -120,27 +120,27 @@ differ, so the ROI model treats the mix as an assumption and tests other mixes.
 | `manage_payment_method` | Account management | 36 | ID-03, MAC-04 | 4 | Changes personal details, a common route to account takeover. Needs the stronger identity check (issue 4). |
 | `status_quantity` | Order issues | 135 | ID-02, ORD-03 | 5 | May refund and remove an item. |
 | `status_payment_method` | Order issues | 134 | ID-02, ORD-02 | 5 | Changes the order. Shipping status must come from the system (issue 5). |
-| `manage_create` | Order issues | 134 | ID-02, ORD-06 | 5, 11 | Places a purchase. Bronze and Guest members with shipped orders have no written rule, so those go to a person (issue 11). |
-| `status_mystery_fee` | Order issues | 130 | ID-02, ORD-01 | 1, 5 | Removes a fee (money). No made-up reasons when a fee stays (issue 1). |
-| `manage_cancel` | Order issues | 125 | ID-02, ORD-07 | 5 | Refunds and removes an item. |
-| `manage_downgrade` | Order issues | 123 | ID-02, ORD-05 | 5 | Changes the order or credits the shipping fee. |
-| `manage_upgrade` | Order issues | 117 | ID-02, ORD-04 | 5 | Changes the order and may charge $20. |
+| `manage_create` | Order issues | 134 | ID-02, ORD-06 | 5, 11, 13 | Places a purchase. Bronze and Guest members with shipped orders have no written rule, so those go to a person (issue 11). |
+| `status_mystery_fee` | Order issues | 130 | ID-02, ORD-01 | 1, 5, 13 | Removes a fee (money). No made-up reasons when a fee stays (issue 1). |
+| `manage_cancel` | Order issues | 125 | ID-02, ORD-07 | 5, 13 | Refunds and removes an item. |
+| `manage_downgrade` | Order issues | 123 | ID-02, ORD-05 | 5, 13 | Changes the order or credits the shipping fee. |
+| `manage_upgrade` | Order issues | 117 | ID-02, ORD-04 | 5, 13 | Changes the order and may charge $20. |
 | `bad_price_competitor` | Purchase disputes | 149 | ID-02, DSP-01 | 8, 12 | AI explains the pricing policy factually (issue 12). A person decides on any promo code, which removes the 'keeps pushing' judgment (issue 8). |
 | `out_of_stock_general` | Purchase disputes | 140 | DSP-02 | 8 | AI reports to Purchasing. A person decides on any promo code (issue 8). |
 | `bad_price_yesterday` | Purchase disputes | 139 | ID-02, DSP-01 | 8, 12 | AI explains the pricing policy factually (issue 12). A person decides on any promo code, which removes the 'keeps pushing' judgment (issue 8). |
-| `promo_code_invalid` | Purchase disputes | 133 | DSP-04, DSP-05 | - | Issues a 20% code. Low value, so a candidate for automatic approval after the pilot. |
+| `promo_code_invalid` | Purchase disputes | 133 | DSP-04, DSP-05 | 13 | Issues a 20% code. Low value, so a candidate for automatic approval after the pilot. |
 | `out_of_stock_one_item` | Purchase disputes | 127 | DSP-03 | - | AI reports to Purchasing. A back-order is a purchase, so it needs approval. |
-| `promo_code_out_of_date` | Purchase disputes | 112 | DSP-04, DSP-05 | - | Issues a 20% code. Low value, so a candidate for automatic approval after the pilot. |
-| `return_size` | Refunds and returns | 191 | ID-01, RET-01 to RET-04 | 10 | AI can check eligibility from the membership table, but it creates a return. Declined returns need an official escalation path (issue 10). |
-| `return_color` | Refunds and returns | 180 | ID-01, RET-01 to RET-04 | 10 | AI can check eligibility from the membership table, but it creates a return. Declined returns need an official escalation path (issue 10). |
+| `promo_code_out_of_date` | Purchase disputes | 112 | DSP-04, DSP-05 | 13 | Issues a 20% code. Low value, so a candidate for automatic approval after the pilot. |
+| `return_size` | Refunds and returns | 191 | ID-01, RET-01 to RET-04 | 10, 13 | AI can check eligibility from the membership table, but it creates a return. Declined returns need an official escalation path (issue 10). |
+| `return_color` | Refunds and returns | 180 | ID-01, RET-01 to RET-04 | 10, 13 | AI can check eligibility from the membership table, but it creates a return. Declined returns need an official escalation path (issue 10). |
 | `refund_update` | Refunds and returns | 177 | ID-01, RET-07 | - | Moves money: the refund total changes. |
 | `refund_initiate` | Refunds and returns | 176 | ID-01, RET-05, RET-06 | 6 | Moves money. The amount must come from the order, not a $50 default (issue 6). |
-| `return_stain` | Refunds and returns | 167 | ID-01, RET-01 to RET-04 | 10 | AI can check eligibility from the membership table, but it creates a return. Declined returns need an official escalation path (issue 10). |
+| `return_stain` | Refunds and returns | 167 | ID-01, RET-01 to RET-04 | 10, 13 | AI can check eligibility from the membership table, but it creates a return. Declined returns need an official escalation path (issue 10). |
 | `missing` | Shipping | 261 | ID-01, SHP-03 | 9 | May reship an order. The 7-day rule contradicts itself (issue 9). |
 | `manage` | Shipping | 248 | ID-01, SHP-02 | 5 | Changes the shipping address or item. |
 | `cost` | Shipping | 243 | ID-01, SHP-04 | 5 | Waives a fee or refunds $8. |
-| `manage_dispute_bill` | Subscription | 190 | ID-02, SUB-04 | - | Moves money: refunds part of a bill. |
-| `manage_extension` | Subscription | 165 | ID-02, SUB-03 | - | Changes the subscription. |
+| `manage_dispute_bill` | Subscription | 190 | ID-02, SUB-04 | 13 | Moves money: refunds part of a bill. |
+| `manage_extension` | Subscription | 165 | ID-02, SUB-03 | 13 | Changes the subscription. |
 | `manage_pay_bill` | Subscription | 162 | ID-02, SUB-02 | 2 | Takes a payment. Must use a secure payment link, not card details in chat (issue 2). |
 
 ### Tier D: People only during pilot (6 request types, 12% of conversations)
@@ -151,8 +151,8 @@ differ, so the ROI model treats the mix as an assumption and tests other mixes.
 | `recover_password` | Account access | 336 | ID-05, ID-06, ACC-02, ACC-03 | 3, 4 | Account-takeover risk: weak checks (maiden name) and passwords shared in chat. Better fixed with a self-service reset link than with AI. |
 | `status_shipping_question` | Account management | 131 | MAC-05 | 11 | The guideline is incomplete, so there's no rule to follow. |
 | `status_delivery_time` | Order issues | 142 | ORD-08 | 11 | The guideline is incomplete, so there's no rule to follow. |
-| `mistimed_billing_never_bought` | Purchase disputes | 139 | ID-01, DSP-06, DSP-07 | 7 | The company knowingly risks paying twice for Gold members. Stays with people until Finance sets a limit. |
-| `mistimed_billing_already_returned` | Purchase disputes | 137 | ID-01, DSP-06, DSP-07 | 7 | The company knowingly risks paying twice for Gold members. Stays with people until Finance sets a limit. |
+| `mistimed_billing_never_bought` | Purchase disputes | 139 | ID-01, DSP-06, DSP-07 | 7, 13 | The company knowingly risks paying twice for Gold members. Stays with people until Finance sets a limit. |
+| `mistimed_billing_already_returned` | Purchase disputes | 137 | ID-01, DSP-06, DSP-07 | 7, 13 | The company knowingly risks paying twice for Gold members. Stays with people until Finance sets a limit. |
 
 ---
 
