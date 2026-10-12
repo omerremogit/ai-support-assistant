@@ -17,7 +17,7 @@ of that work safely, and what it would save. The full context is in the
 - [x] Project brief
 - [x] Explore about 10,000 real support conversations ([notebook](notebooks/explore_conversations.ipynb))
 - [x] Turn the company policy guide into business rules ([catalog](docs/02_business_rules.md))
-- [ ] Sort request types by how much AI could handle
+- [x] Sort request types by how much AI could handle ([matrix](docs/03_automation_matrix.md))
 - [ ] Map the current process for the top 3 requests
 - [ ] Write the requirements document (BRD)
 - [ ] Write user stories and acceptance criteria (Jira)
