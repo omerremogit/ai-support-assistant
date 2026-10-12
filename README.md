@@ -20,8 +20,8 @@ of that work safely, and what it would save. The full context is in the
 - [x] Sort request types by how much AI could handle ([matrix](docs/03_automation_matrix.md))
 - [x] Map the current and future process for 3 requests ([process maps](docs/04_process_maps.md))
 - [x] Write the requirements document ([BRD](docs/05_requirements_BRD.md))
-- [ ] Write user stories and acceptance criteria (Jira)
-- [ ] Define success measures and test cases
+- [x] Write user stories and acceptance criteria ([stories](docs/06_user_stories.md), Jira import file)
+- [x] Define success measures and 36 test cases ([test plan](docs/07_test_plan.md))
 - [ ] Build the ROI model in Excel
 - [ ] Build a prototype and test it
 - [ ] Findings and recommendation

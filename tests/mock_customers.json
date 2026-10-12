@@ -1,0 +1,139 @@
+{
+  "reference_date": "2026-10-12",
+  "note": "Invented test data for the Harbor & Thread prototype. Not real people.",
+  "customers": [
+    {
+      "customer_id": "CUS-01",
+      "full_name": "Maya Patel",
+      "account_id": "HT-40211",
+      "email": "maya.patel@example.com",
+      "phone_on_file": "(617) 555-0141",
+      "membership": "Gold",
+      "subscription": {
+        "status": "active",
+        "due_date": "2026-11-03",
+        "amount_due": 99.0
+      },
+      "orders": [
+        {
+          "order_id": "ORD-1001",
+          "item": "Levi's Jeans",
+          "purchase_date": "2026-03-15",
+          "has_receipt": false,
+          "original_packaging": false,
+          "shipping_status": "Delivered"
+        },
+        {
+          "order_id": "ORD-1008",
+          "item": "Gap Sweater",
+          "purchase_date": "2026-10-08",
+          "has_receipt": true,
+          "original_packaging": true,
+          "shipping_status": "In Transit",
+          "expected_delivery": "2026-10-15"
+        }
+      ],
+      "refunds": [
+        {
+          "refund_id": "REF-501",
+          "order_id": "ORD-1001",
+          "status": "in progress",
+          "requested_via": "chat",
+          "amount": 45.0
+        }
+      ]
+    },
+    {
+      "customer_id": "CUS-02",
+      "full_name": "Daniel Okafor",
+      "account_id": "HT-40388",
+      "email": "d.okafor@example.com",
+      "phone_on_file": "(617) 555-0172",
+      "membership": "Silver",
+      "subscription": {
+        "status": "past due",
+        "due_date": "2026-10-01",
+        "amount_due": 99.0
+      },
+      "orders": [
+        {
+          "order_id": "ORD-1002",
+          "item": "Nike Boots",
+          "purchase_date": "2026-05-10",
+          "has_receipt": false,
+          "original_packaging": false,
+          "shipping_status": "Delivered"
+        }
+      ],
+      "refunds": []
+    },
+    {
+      "customer_id": "CUS-03",
+      "full_name": "Lena Fischer",
+      "account_id": "HT-40517",
+      "email": "lena.f@example.com",
+      "phone_on_file": "(617) 555-0193",
+      "membership": "Bronze",
+      "subscription": {
+        "status": "active",
+        "due_date": "2026-10-12",
+        "amount_due": 0.0
+      },
+      "orders": [
+        {
+          "order_id": "ORD-1003",
+          "item": "Calvin Klein Shirt",
+          "purchase_date": "2026-06-14",
+          "has_receipt": false,
+          "original_packaging": false,
+          "shipping_status": "Delivered"
+        },
+        {
+          "order_id": "ORD-1006",
+          "item": "Guess Jeans",
+          "purchase_date": "2026-06-14",
+          "has_receipt": true,
+          "original_packaging": false,
+          "shipping_status": "Delivered"
+        },
+        {
+          "order_id": "ORD-1007",
+          "item": "Uniqlo Jacket",
+          "purchase_date": "2026-07-14",
+          "has_receipt": false,
+          "original_packaging": false,
+          "shipping_status": "Delivered"
+        }
+      ],
+      "refunds": []
+    },
+    {
+      "customer_id": "CUS-04",
+      "full_name": "Sam Rivera",
+      "account_id": "HT-40642",
+      "email": "sam.rivera@example.com",
+      "phone_on_file": "(617) 555-0128",
+      "membership": "Guest",
+      "subscription": null,
+      "orders": [
+        {
+          "order_id": "ORD-1004",
+          "item": "Express Jeans",
+          "purchase_date": "2026-09-22",
+          "has_receipt": false,
+          "original_packaging": false,
+          "shipping_status": "Delivered"
+        },
+        {
+          "order_id": "ORD-1005",
+          "item": "Banana Republic Shirt",
+          "purchase_date": "2026-08-28",
+          "has_receipt": false,
+          "original_packaging": true,
+          "shipping_status": "Delivered"
+        }
+      ],
+      "refunds": []
+    }
+  ]
+}
