@@ -233,13 +233,47 @@ the automation matrix was updated to show it on the 14 request types that use th
 
 ---
 
-## 6. Editing these diagrams
+## 6. Checking the maps against real conversations
+
+To confirm the current-process maps match what agents actually do, I listed the most common
+sequence of system actions for each request type (notebook section 12).
+
+| Request type | Most common action sequences | Share of conversations |
+|---|---|---|
+| `jeans` | search-faq → search-jeans → select-faq | 60% |
+| | search-faq → search-jeans (no answer selected) | 23% |
+| | search-faq → search-jeans → select-faq → select-faq (two questions) | 4% |
+| `status_due_date` | pull-up-account → verify-identity → subscription-status → send-link | 22% |
+| | ... → send-link → enter-details (payment taken in chat) | 13% |
+| | ... → subscription-status → enter-details → update-account (subscription changed) | 10% |
+| `return_size` | pull-up-account → validate-purchase → membership → enter-details → update-order (return created) | 51% |
+| | pull-up-account → validate-purchase → membership (return declined) | 10% |
+| | pull-up-account → validate-purchase → enter-details → update-order (**no eligibility check**) | 9% |
+
+**What this confirms:**
+
+- **The maps match the main path.** The most common sequence for each request type follows the
+  current-process map step by step.
+- **`jeans`:** in 23% of chats the agent opened the FAQ but didn't select an answer, which supports
+  pain point ⚠3 (agents work around the stored answers) and the handoff branch in the future process.
+- **`status_due_date`:** at least 23% of these chats took a payment amount in the chat (⚠4), and 10%
+  ended with a change to the subscription. A request that starts as tier B can turn into a change,
+  so the assistant must hand those off to the tier C approval path. This becomes a requirement in
+  Step 6.
+- **`return_size`:** in 9% of chats, the agent created a return **without checking membership
+  eligibility at all**. That's direct evidence for pain point ⚠3: the eligibility rule isn't
+  applied consistently today. An AI that applies RET-01 every time fixes this.
+
+*Only the top three sequences are shown, so the shares don't add up to 100%. The rest are less
+common variations.*
+
+## 7. Editing these diagrams
 
 The diagrams are written in Mermaid, which GitHub draws automatically. To edit one, change its
 text in this file. To get a version you can drag and drop, copy a diagram's text, open
 [draw.io](https://app.diagrams.net), and choose **Arrange → Insert → Advanced → Mermaid**.
 
-## 7. Next step
+## 8. Next step
 
 **Step 6:** turn the business rules, the automation tiers and these future processes into the
 requirements document (BRD).
