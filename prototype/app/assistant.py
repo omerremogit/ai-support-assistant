@@ -304,7 +304,9 @@ class Assistant:
         decision = rules.return_eligibility(membership, to_date(order["purchase_date"]), order["has_receipt"],
                                             order["original_packaging"], config.TODAY)
         trace.append(f"Rule {decision.rule_id} applied with system data: {membership}, bought "
-                     f"{order['purchase_date']} -> {'allowed' if decision.allowed else 'declined'}")
+                     f"{order['purchase_date']}, receipt: {'yes' if order['has_receipt'] else 'no'}, "
+                     f"original packaging: {'yes' if order['original_packaging'] else 'no'} -> "
+                     f"{'allowed' if decision.allowed else 'declined'}")
         if not decision.allowed:
             st["awaiting"] = False
             return self._reply(f"I've checked your account: you're a {membership} member and order {order['order_id']} "

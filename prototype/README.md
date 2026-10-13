@@ -62,6 +62,28 @@ python -m unittest discover -s tests -v
 
 These are TC-27 to TC-33 from the test plan. They don't use the AI model.
 
+## Run the test plan
+
+```powershell
+python run_tests.py --batch
+```
+
+This runs all 36 test cases from `tests/test_cases.csv` and writes three files to `results/`:
+`test_results.md` (summary, exit criteria and success measures), `transcripts.md` (every
+conversation) and `test_results.csv`.
+
+How a conversation test is judged:
+
+1. **Outcome:** the final outcome must match the expected one (for example, a handoff).
+2. **Exact checks:** dates, amounts, IDs and card numbers are checked as text in the replies.
+3. **AI judge:** Claude Sonnet 5.5, a different and stronger model, reads each transcript and checks
+   the descriptive items, such as "offers an agent" or "a made-up amount". Using a different model
+   avoids the assistant grading its own work.
+
+Useful options: `--only TC-12,TC-18` reruns chosen tests, `--no-judge` skips the AI judge, and
+leaving out `--batch` skips TC-36 (550 real ABCD conversations, which needs the dataset in `data/`).
+A full run costs well under $1.
+
 ## Things to try in the chat
 
 | Type this | What should happen | Test |

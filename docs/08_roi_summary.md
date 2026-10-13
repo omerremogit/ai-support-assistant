@@ -1,6 +1,6 @@
 # ROI Summary
 
-**Project:** AI Customer Support Assistant  |  **Step 9 of 11**  |  **Version:** 1.0 (draft)
+**Project:** AI Customer Support Assistant  |  **Step 9 of 11**  |  **Version:** 1.1 (prototype results added)
 
 **Full model:** [`roi/roi_model.xlsx`](../roi/roi_model.xlsx). GitHub can't show Excel files, so
 the key results are summarized here. Every number below comes from the workbook's formulas, and
@@ -61,4 +61,17 @@ Today, chats take **4,000 agent hours a month**, costing **$128,000**.
   tier A and B.
 - Handle time, costs and vendor fees are placeholders to confirm with Finance.
 - Handed-off chats are assumed to take the full handle time, so savings are conservative.
-- In Step 10, the expected containment rate is replaced with the prototype's measured results.
+- The prototype can't measure real containment, because that needs real customers (see section 6).
+
+## 6. What the prototype changed
+
+The prototype's routing test (TC-36, 521 real conversations) gives two numbers that affect the model:
+
+- **88.4% of tier A and B chats reached the AI** (153 of 173). The AI can only resolve chats that
+  reach it, so this caps containment. The expected 60% and the best case of 75% both stay below the
+  cap, so the savings estimates hold. The workbook now checks this automatically (Inputs, row 36).
+- **14.4% of chats that need a person reached the AI first** (50 of 348). In the pilot these chats
+  still end with an agent, because the AI is read-only and hands off as soon as a change is
+  requested. The cost is a few extra messages for the customer and a small AI usage cost, not
+  agent time, so the model's numbers don't change. The customer experience impact is the real
+  concern, and it's why routing has to improve before the pilot (see the README).
