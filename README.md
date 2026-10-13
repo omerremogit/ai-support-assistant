@@ -22,7 +22,7 @@ of that work safely, and what it would save. The full context is in the
 - [x] Write the requirements document ([BRD](docs/05_requirements_BRD.md))
 - [x] Write user stories and acceptance criteria ([stories](docs/06_user_stories.md), Jira import file)
 - [x] Define success measures and 36 test cases ([test plan](docs/07_test_plan.md))
-- [ ] Build the ROI model in Excel
+- [x] Build the ROI model in Excel ([summary](docs/08_roi_summary.md), [workbook](roi/roi_model.xlsx))
 - [ ] Build a prototype and test it
 - [ ] Findings and recommendation
 
