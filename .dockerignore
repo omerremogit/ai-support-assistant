@@ -1,0 +1,10 @@
+.git
+data
+notebooks
+roi
+diagrams
+**/__pycache__
+**/.venv
+prototype/.env
+prototype/results
+prototype/logs/*.jsonl

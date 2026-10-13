@@ -27,3 +27,9 @@ MOCK_CUSTOMERS_FILE = REPO_ROOT / "tests" / "mock_customers.json"
 AUTOMATION_MATRIX_FILE = REPO_ROOT / "docs" / "automation_matrix.csv"
 FAQ_FILE = PROTOTYPE_DIR / "data" / "faq.json"
 LOG_FILE = PROTOTYPE_DIR / "logs" / "conversations.jsonl"
+
+# Limits for a public demo, so strangers can't run up the API bill.
+MAX_MESSAGES_PER_CHAT = int(os.getenv("MAX_MESSAGES_PER_CHAT", "25"))
+MAX_MESSAGES_PER_IP_PER_HOUR = int(os.getenv("MAX_MESSAGES_PER_IP_PER_HOUR", "60"))
+DAILY_MESSAGE_CAP = int(os.getenv("DAILY_MESSAGE_CAP", "500"))
+MAX_SESSIONS_IN_MEMORY = int(os.getenv("MAX_SESSIONS_IN_MEMORY", "2000"))

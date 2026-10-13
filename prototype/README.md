@@ -84,6 +84,42 @@ Useful options: `--only TC-12,TC-18` reruns chosen tests, `--no-judge` skips the
 leaving out `--batch` skips TC-36 (550 real ABCD conversations, which needs the dataset in `data/`).
 A full run costs well under $1.
 
+## Deploy it online (Railway)
+
+The repo has a `Dockerfile` at the top level, so Railway can build and run the app without extra setup.
+
+**Before deploying, protect your API key.** A public link means anyone can send messages that use
+your key. The app has demo limits (below), but also set a **monthly spending limit of $5** in the
+Anthropic Console as a hard backstop, and consider a **separate API key just for the demo** so you can
+revoke it without breaking your local setup.
+
+1. On railway.com, sign in with GitHub and choose **New Project → Deploy from GitHub repo →
+   ai-support-assistant**. Railway finds the `Dockerfile` and starts a build.
+2. Open the service's **Variables** tab and add:
+
+   | Variable | Value |
+   |---|---|
+   | `ANTHROPIC_API_KEY` | your demo key |
+   | `PHASE` | `2` (shows the returns and agent-approval flow in the demo) |
+   | `LLM_PROVIDER` | `anthropic` |
+
+3. Open **Settings → Networking → Generate Domain** to get a public URL.
+4. Open the URL and try a few of the examples below.
+
+**Demo limits** (change them with variables of the same name):
+
+| Variable | Default | What it limits |
+|---|---|---|
+| `MAX_MESSAGES_PER_CHAT` | 25 | Messages in one chat |
+| `MAX_MESSAGES_PER_IP_PER_HOUR` | 60 | Messages from one visitor per hour |
+| `DAILY_MESSAGE_CAP` | 500 | Messages across all visitors per day |
+
+At about two small Claude Haiku 5.5 calls per message, even the daily cap costs only cents. The limits
+reset when the app restarts, so the Anthropic spending limit is the real safety net.
+
+Chat logs are stored on the server's temporary disk and disappear on each redeploy. They're masked
+anyway, and the demo uses invented customers only.
+
 ## Things to try in the chat
 
 | Type this | What should happen | Test |

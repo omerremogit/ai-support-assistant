@@ -121,12 +121,12 @@
     </div>
     <div id="messages" aria-live="polite">
       <p class="empty" id="empty">Send a message as a customer. Try a product question, a subscription question,
-        or ask for a person.</p>
+        or ask for a person. This is a demo with invented customers, so please don't enter real personal details.</p>
     </div>
     <p class="error" id="error" hidden></p>
     <form id="form">
       <label for="input" class="sr-only" style="position:absolute;left:-9999px">Message</label>
-      <input type="text" id="input" autocomplete="off" placeholder="Type a message as the customer" maxlength="2000">
+      <input type="text" id="input" autocomplete="off" placeholder="Type a message as the customer" maxlength="1000">
       <button type="submit" id="send">Send</button>
     </form>
   </section>
@@ -226,13 +226,15 @@ async function send(message) {
       body: JSON.stringify({ message, session_id: sessionId }),
     });
     const data = await res.json();
+    if (res.status === 429 || res.status === 400) throw Object.assign(new Error(data.detail), { quiet: true });
     if (!res.ok) throw new Error(data.detail || "Something went wrong.");
     sessionId = data.session_id;
     addMessage(data.reply, "assistant", data.outcome);
     showDecision(data);
     if (data.approval_id) loadApprovals();
   } catch (err) {
-    $("error").textContent = err.message + " Check that the server is running and your API key is set in prototype/.env.";
+    $("error").textContent = err.quiet ? err.message
+      : err.message + " If you're running this yourself, check that the server is running and the API key is set.";
     $("error").hidden = false;
   } finally {
     $("send").disabled = false; $("input").focus();

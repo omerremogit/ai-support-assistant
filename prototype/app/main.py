@@ -1,17 +1,19 @@
 """FastAPI app. Run from the prototype folder:  uvicorn app.main:app --reload"""
 import uuid
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from . import config
 from .assistant import Assistant
+from .limits import DemoLimits
 from .llm import get_llm
 
 app = FastAPI(title="Harbor & Thread AI Support Assistant (prototype)")
 llm = get_llm()
 assistant = Assistant(llm)
+limits = DemoLimits()
 STATIC = config.PROTOTYPE_DIR / "app" / "static"
 
 
@@ -37,14 +39,26 @@ def get_config():
             "today": config.TODAY.isoformat()}
 
 
+def client_ip(request: Request) -> str:
+    # Hosting platforms put the visitor's address in X-Forwarded-For.
+    forwarded = request.headers.get("x-forwarded-for", "")
+    return forwarded.split(",")[0].strip() or (request.client.host if request.client else "unknown")
+
+
 @app.post("/api/chat")
-def chat(body: ChatIn):
+def chat(body: ChatIn, request: Request):
     message = body.message.strip()
     if not message:
         raise HTTPException(400, "Type a message first.")
-    if len(message) > 2000:
-        raise HTTPException(400, "Messages can be up to 2,000 characters.")
+    if len(message) > 1000:
+        raise HTTPException(400, "Messages can be up to 1,000 characters.")
     session_id = body.session_id or uuid.uuid4().hex
+    session = assistant.sessions.get(session_id)
+    blocked = limits.check(client_ip(request), session.turns if session else 0)
+    if blocked:
+        raise HTTPException(429, blocked)
+    if len(assistant.sessions) >= config.MAX_SESSIONS_IN_MEMORY and session is None:
+        assistant.sessions.pop(next(iter(assistant.sessions)))  # drop the oldest chat
     try:
         return assistant.handle(session_id, message)
     except Exception as exc:  # e.g. missing API key or network error
@@ -73,6 +87,3 @@ def test_customers():
              "membership": c["membership"]} for c in assistant.customers.values()]
 
 
-@app.get("/api/usage")
-def usage():
-    return getattr(llm, "usage", {})
