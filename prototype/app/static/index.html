@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harbor &amp; Thread support assistant (prototype)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #18212F;
+    --ink-soft: #4A5568;
+    --denim: #2C4A78;
+    --mist: #E9EEF2;
+    --sail: #FBFCFD;
+    --line: #D3DBE3;
+    --thread: #C9932F;
+    --tier-a: #2F7D5B;
+    --tier-b: #2C7C8C;
+    --tier-c: #B07A1E;
+    --tier-d: #A3412F;
+    --radius-lg: 14px;
+    --radius-sm: 6px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: "Figtree", system-ui, sans-serif; color: var(--ink);
+    background: var(--mist); font-size: 15px; line-height: 1.5;
+  }
+  header {
+    display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: space-between;
+    padding: 18px 28px; border-bottom: 1px solid var(--line); background: var(--sail);
+  }
+  header h1 { font-size: 20px; font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+  header h1 small { font-weight: 500; color: var(--ink-soft); font-size: 15px; margin-left: 6px; }
+  #meta { color: var(--ink-soft); font-size: 13px; }
+  main {
+    display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); gap: 20px;
+    padding: 20px 28px 28px; max-width: 1280px; margin: 0 auto;
+  }
+  /* Chat */
+  .chat {
+    background: var(--sail); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    display: flex; flex-direction: column; height: calc(100vh - 130px); min-height: 480px;
+  }
+  .chat-top { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--line); }
+  .chat-top h2 { font-size: 15px; margin: 0; font-weight: 600; }
+  #messages { flex: 1; overflow-y: auto; padding: 20px 18px; display: flex; flex-direction: column; gap: 12px; }
+  .msg { max-width: 78%; padding: 10px 14px; border-radius: 12px; white-space: pre-wrap; word-wrap: break-word; }
+  .msg.customer { align-self: flex-end; background: var(--denim); color: #fff; border-bottom-right-radius: 3px; }
+  .msg.assistant { align-self: flex-start; background: var(--mist); border-bottom-left-radius: 3px; }
+  .msg.assistant.handoff { border-left: 3px solid var(--tier-d); }
+  .msg .outcome { display: block; font-size: 12px; color: var(--ink-soft); margin-top: 6px; }
+  .empty { color: var(--ink-soft); margin: auto; text-align: center; max-width: 36ch; }
+  form { display: flex; gap: 10px; padding: 14px 18px; border-top: 1px solid var(--line); }
+  input[type=text] {
+    flex: 1; font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff;
+  }
+  button {
+    font: inherit; font-weight: 600; border-radius: var(--radius-sm); border: 1px solid var(--denim);
+    background: var(--denim); color: #fff; padding: 9px 16px; cursor: pointer;
+  }
+  button.quiet { background: transparent; color: var(--denim); }
+  button:disabled { opacity: .5; cursor: wait; }
+  :focus-visible { outline: 3px solid var(--thread); outline-offset: 2px; }
+  /* Decision panel */
+  aside { display: flex; flex-direction: column; gap: 16px; }
+  .panel { background: var(--sail); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 16px 18px; }
+  .panel h2 { font-size: 15px; margin: 0 0 4px; font-weight: 600; }
+  .panel p.hint { margin: 0 0 12px; color: var(--ink-soft); font-size: 13px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .chip { font-size: 12.5px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: var(--mist); }
+  .chip.tier-A { background: var(--tier-a); color: #fff; }
+  .chip.tier-B { background: var(--tier-b); color: #fff; }
+  .chip.tier-C { background: var(--tier-c); color: #fff; }
+  .chip.tier-D { background: var(--tier-d); color: #fff; }
+  /* The thread: each step is a knot on a vertical thread */
+  ol.thread { list-style: none; margin: 0; padding: 0 0 0 18px; position: relative; }
+  ol.thread::before { content: ""; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 2px; background: var(--thread); border-radius: 2px; }
+  ol.thread li { position: relative; padding: 2px 0 10px 8px; font-size: 13.5px; }
+  ol.thread li::before {
+    content: ""; position: absolute; left: -17px; top: 8px; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--sail); border: 2px solid var(--thread);
+  }
+  ol.thread li:last-child { padding-bottom: 0; }
+  ol.thread li:last-child::before { background: var(--thread); }
+  dl.summary { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; font-size: 13.5px; }
+  dl.summary dt { color: var(--ink-soft); }
+  dl.summary dd { margin: 0; }
+  .approval { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 10px 12px; margin-top: 10px; font-size: 13.5px; }
+  .approval .actions { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .approval select { font: inherit; font-size: 13px; padding: 6px; border-radius: var(--radius-sm); border: 1px solid var(--line); }
+  .status { font-weight: 600; }
+  .customers { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .customers td { padding: 6px 4px; border-top: 1px solid var(--line); vertical-align: top; }
+  .customers button { padding: 4px 10px; font-size: 12.5px; }
+  .error { color: var(--tier-d); font-size: 13px; margin: 0 18px 10px; }
+  @media (max-width: 860px) {
+    main { grid-template-columns: 1fr; padding: 14px; }
+    header { padding: 14px; }
+    .chat { height: 70vh; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .msg { animation: arrive .18s ease-out; }
+    @keyframes arrive { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Harbor &amp; Thread <small>support assistant prototype</small></h1>
+  <div id="meta">Loading settings…</div>
+</header>
+
+<main>
+  <section class="chat" aria-label="Customer chat">
+    <div class="chat-top">
+      <h2>Customer chat</h2>
+      <button type="button" class="quiet" id="new-chat">Start a new chat</button>
+    </div>
+    <div id="messages" aria-live="polite">
+      <p class="empty" id="empty">Send a message as a customer. Try a product question, a subscription question,
+        or ask for a person.</p>
+    </div>
+    <p class="error" id="error" hidden></p>
+    <form id="form">
+      <label for="input" class="sr-only" style="position:absolute;left:-9999px">Message</label>
+      <input type="text" id="input" autocomplete="off" placeholder="Type a message as the customer" maxlength="2000">
+      <button type="submit" id="send">Send</button>
+    </form>
+  </section>
+
+  <aside>
+    <section class="panel" aria-label="How the assistant decided">
+      <h2>How the assistant decided</h2>
+      <p class="hint">The AI only works out what the customer wants. Facts come from company systems and decisions from fixed rules.</p>
+      <div class="facts" id="facts"></div>
+      <ol class="thread" id="trace"><li>Waiting for the first message.</li></ol>
+    </section>
+
+    <section class="panel" id="handoff-panel" hidden aria-label="Handoff summary for the agent">
+      <h2>Handoff summary for the agent</h2>
+      <p class="hint">What the agent sees, so the customer doesn't have to repeat themselves.</p>
+      <dl class="summary" id="handoff"></dl>
+    </section>
+
+    <section class="panel" id="approvals-panel" hidden aria-label="Agent approvals">
+      <h2>Agent approvals</h2>
+      <p class="hint">Returns the assistant prepared. Nothing happens until an agent approves.</p>
+      <div id="approvals"><p class="hint">No returns waiting.</p></div>
+    </section>
+
+    <section class="panel" aria-label="Test customers">
+      <h2>Test customers</h2>
+      <p class="hint">Invented customers from the test plan. Use their details to verify in the chat.</p>
+      <table class="customers" id="customers"></table>
+    </section>
+  </aside>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let sessionId = null;
+
+const OUTCOME_LABELS = {
+  answer: "Answered", verify: "Asked for identity details", handoff: "Handed to an agent",
+  secure_link: "Sent a secure link", decline_and_offer_escalation: "Declined, escalation offered",
+  prepare_for_approval: "Prepared for agent approval", clarify: "Asked a clarifying question",
+};
+
+function addMessage(text, who, outcome) {
+  $("empty")?.remove();
+  const div = document.createElement("div");
+  div.className = `msg ${who}` + (outcome === "handoff" ? " handoff" : "");
+  div.textContent = text;
+  if (outcome) {
+    const tag = document.createElement("span");
+    tag.className = "outcome";
+    tag.textContent = OUTCOME_LABELS[outcome] || outcome;
+    div.appendChild(tag);
+  }
+  $("messages").appendChild(div);
+  $("messages").scrollTop = $("messages").scrollHeight;
+}
+
+function chip(text, cls = "") {
+  const span = document.createElement("span");
+  span.className = `chip ${cls}`;
+  span.textContent = text;
+  return span;
+}
+
+function showDecision(data) {
+  const facts = $("facts");
+  facts.replaceChildren();
+  if (data.request_type) facts.appendChild(chip(data.request_type));
+  if (data.tier && data.tier !== "-") facts.appendChild(chip(`Tier ${data.tier}`, `tier-${data.tier}`));
+  facts.appendChild(chip(data.verified ? "Identity verified" : "Not verified"));
+  const trace = $("trace");
+  trace.replaceChildren(...(data.trace.length ? data.trace : ["No extra checks needed"]).map((step) => {
+    const li = document.createElement("li"); li.textContent = step; return li;
+  }));
+  const summary = data.handoff_summary;
+  $("handoff-panel").hidden = !summary;
+  if (summary) {
+    const rows = [
+      ["Request", summary.request_type], ["Tier", summary.tier], ["Verified", summary.verified ? "Yes" : "No"],
+      ["Customer", summary.customer || "Unknown"], ["Reason", summary.reason],
+      ["Tried", summary.what_was_tried.join("; ")], ["Their words", summary.customer_words],
+    ];
+    $("handoff").replaceChildren(...rows.flatMap(([k, v]) => {
+      const dt = document.createElement("dt"); dt.textContent = k;
+      const dd = document.createElement("dd"); dd.textContent = v;
+      return [dt, dd];
+    }));
+  }
+}
+
+async function send(message) {
+  $("send").disabled = true; $("error").hidden = true;
+  addMessage(message, "customer");
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message, session_id: sessionId }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || "Something went wrong.");
+    sessionId = data.session_id;
+    addMessage(data.reply, "assistant", data.outcome);
+    showDecision(data);
+    if (data.approval_id) loadApprovals();
+  } catch (err) {
+    $("error").textContent = err.message + " Check that the server is running and your API key is set in prototype/.env.";
+    $("error").hidden = false;
+  } finally {
+    $("send").disabled = false; $("input").focus();
+  }
+}
+
+async function loadApprovals() {
+  const items = await (await fetch("/api/approvals")).json();
+  const box = $("approvals");
+  if (!items.length) { box.innerHTML = '<p class="hint">No returns waiting.</p>'; return; }
+  box.replaceChildren(...items.map((a) => {
+    const div = document.createElement("div");
+    div.className = "approval";
+    div.innerHTML = `<div><strong></strong></div><div></div><div class="hint"></div><div class="status"></div>`;
+    div.children[0].firstChild.textContent = `${a.approval_id}: ${a.customer}`;
+    div.children[1].textContent = `${a.action}, by ${a.method}`;
+    div.children[2].textContent = `Rule ${a.rule}: ${a.reason}`;
+    div.children[3].textContent = a.status === "pending" ? "Waiting for approval" : `${a.status[0].toUpperCase()}${a.status.slice(1)}`;
+    if (a.status === "pending") {
+      const actions = document.createElement("div");
+      actions.className = "actions";
+      actions.innerHTML = `<button type="button">Approve</button>
+        <select aria-label="Reason for rejecting"><option value="">Reason for rejecting</option>
+        <option value="wrong_data">Wrong customer data</option><option value="policy_exception">Policy exception needed</option>
+        <option value="suspected_fraud">Suspected fraud</option></select>
+        <button type="button" class="quiet">Reject</button>`;
+      const [approveBtn, reason, rejectBtn] = actions.children;
+      approveBtn.onclick = () => decide(a.approval_id, true);
+      rejectBtn.onclick = () => {
+        if (!reason.value) { reason.focus(); return; }
+        decide(a.approval_id, false, reason.value);
+      };
+      div.appendChild(actions);
+    }
+    return div;
+  }));
+}
+
+async function decide(id, approve, reasonCode = null) {
+  await fetch(`/api/approvals/${id}`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ approve, reason_code: reasonCode }),
+  });
+  loadApprovals();
+}
+
+async function init() {
+  const cfg = await (await fetch("/api/config")).json();
+  $("meta").textContent = `${cfg.phase === 1 ? "Pilot scope (tiers A and B)" : "Phase 2 scope (adds returns)"}, model: ${cfg.model}, test date: ${cfg.today}`;
+  $("approvals-panel").hidden = cfg.phase < 2;
+  if (cfg.phase >= 2) loadApprovals();
+  const customers = await (await fetch("/api/test-customers")).json();
+  $("customers").replaceChildren(...customers.map((c) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td><strong></strong><br><span class="hint"></span></td><td><button type="button" class="quiet">Use</button></td>`;
+    tr.querySelector("strong").textContent = c.full_name;
+    tr.querySelector(".hint").textContent = `${c.membership}, ${c.account_id}`;
+    tr.querySelector("button").onclick = () => { $("input").value = `${c.full_name}, ${c.account_id}, ${c.email}`; $("input").focus(); };
+    return tr;
+  }));
+}
+
+$("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const message = $("input").value.trim();
+  if (!message) return;
+  $("input").value = "";
+  send(message);
+});
+$("new-chat").addEventListener("click", () => {
+  sessionId = null;
+  $("messages").innerHTML = '<p class="empty" id="empty">New chat started. Send a message as a customer.</p>';
+  $("trace").innerHTML = "<li>Waiting for the first message.</li>";
+  $("facts").replaceChildren(); $("handoff-panel").hidden = true;
+});
+init();
+</script>
+</body>
+</html>

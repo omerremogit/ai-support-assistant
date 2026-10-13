@@ -1,0 +1,211 @@
+{
+  "_note": "MOCK CONTENT written for the prototype. The ABCD dataset lists the FAQ questions agents saw, but not their answers.",
+  "jeans": [
+    {
+      "q": "How do I remove a grass stain?",
+      "a": "Soak the stain in cold water with a little laundry detergent for 30 minutes, then wash as usual. Avoid hot water, which sets the stain."
+    },
+    {
+      "q": "How often should jeans be washed?",
+      "a": "About every 5 to 10 wears. Wash them inside out in cold water to keep the color."
+    },
+    {
+      "q": "How long is the leg length?",
+      "a": "Our jeans come in 30, 32 and 34 inch inseams. The inseam is shown on each product page."
+    },
+    {
+      "q": "How much does tailoring cost?",
+      "a": "Hemming is free for Gold members and $10 for everyone else, at any of our stores."
+    },
+    {
+      "q": "Do the jeans shrink after washing?",
+      "a": "Our jeans are pre-shrunk, so they shrink less than 1% if you wash them in cold water and hang them to dry. Tumble drying on high heat can shrink them slightly more."
+    },
+    {
+      "q": "Do the jeans come in dark blue or black?",
+      "a": "Most styles come in dark blue and black. Available colors are listed on each product page."
+    },
+    {
+      "q": "Are larger or smaller sizes available?",
+      "a": "Waist sizes run from 26 to 42. If a size is out of stock online, the product page lets you sign up for a restock alert."
+    },
+    {
+      "q": "Do you sell ripped designs?",
+      "a": "Yes, our distressed range has ripped and frayed styles."
+    }
+  ],
+  "shirt": [
+    {
+      "q": "How do I remove a stain from a shirt?",
+      "a": "Blot the stain, apply a little dish soap, leave it for 10 minutes and wash in cold water."
+    },
+    {
+      "q": "How should I wash the shirt?",
+      "a": "Machine wash cold on a gentle cycle and hang to dry. Iron on medium heat if needed."
+    },
+    {
+      "q": "How long is the arm length?",
+      "a": "Sleeve lengths are listed by size on each product page. Our medium has a 34-inch sleeve."
+    },
+    {
+      "q": "How wide is the collar?",
+      "a": "Collar sizes run from 14 to 18 inches. The size chart on the product page shows each one."
+    },
+    {
+      "q": "Does this shirt shrink?",
+      "a": "Our cotton shirts may shrink about 2% if dried on high heat. Washing cold and hanging to dry prevents this."
+    },
+    {
+      "q": "Are small, medium or large in stock?",
+      "a": "Stock is shown live on each product page, by size."
+    },
+    {
+      "q": "Do the buttons come in brown or black?",
+      "a": "Button color depends on the style and is listed on the product page."
+    },
+    {
+      "q": "What material is the shirt made of?",
+      "a": "Most of our shirts are 100% cotton. The exact material is on each product page and the care label."
+    }
+  ],
+  "boots": [
+    {
+      "q": "How do I remove a paint stain?",
+      "a": "For leather, gently wipe fresh paint with a damp cloth. For dried paint, use a leather cleaner and a soft brush."
+    },
+    {
+      "q": "How wide is the shoe?",
+      "a": "Our boots come in standard (D) and wide (E) widths."
+    },
+    {
+      "q": "How do I remove gum?",
+      "a": "Put the boot in a plastic bag in the freezer for an hour, then gently scrape off the hardened gum."
+    },
+    {
+      "q": "How long do they take to break in?",
+      "a": "Usually about two weeks of regular wear."
+    },
+    {
+      "q": "Are the boots waterproof?",
+      "a": "Boots marked 'waterproof' on the product page have a sealed membrane. Other styles are water-resistant only."
+    },
+    {
+      "q": "What color are the laces?",
+      "a": "Laces match the boot color. Spare laces in black and brown are available in store."
+    },
+    {
+      "q": "What if my size isn't in stock?",
+      "a": "You can sign up for a restock alert on the product page."
+    },
+    {
+      "q": "Do the boots come with a warranty?",
+      "a": "All boots have a one-year warranty against manufacturing defects."
+    }
+  ],
+  "jacket": [
+    {
+      "q": "How do I remove a wine stain?",
+      "a": "Blot it right away, then dab with cold water and a little mild detergent. For wool jackets, use a dry cleaner."
+    },
+    {
+      "q": "Can I machine wash it or is it dry-clean only?",
+      "a": "Check the care label. Cotton and synthetic jackets can be machine washed cold; wool and leather jackets are dry-clean only."
+    },
+    {
+      "q": "How long is the arm length?",
+      "a": "Sleeve lengths are on the size chart on each product page."
+    },
+    {
+      "q": "How do I detach the hood?",
+      "a": "Undo the snap buttons around the collar, then unzip the hood from the back."
+    },
+    {
+      "q": "Does the jacket shrink after washing?",
+      "a": "Following the care label prevents shrinking. Machine-washable jackets should be washed cold and hung to dry."
+    },
+    {
+      "q": "Does the store have any in stock?",
+      "a": "Stock is shown on each product page, and you can check a local store's stock there too."
+    },
+    {
+      "q": "What material is the jacket made of?",
+      "a": "Materials vary by style and are listed on each product page."
+    },
+    {
+      "q": "Is it warm enough for winter?",
+      "a": "Jackets marked 'insulated' are rated for temperatures down to about -10°C (14°F)."
+    }
+  ],
+  "pricing": [
+    {
+      "q": "How much is gift wrapping?",
+      "a": "Gift wrapping is $5 per item."
+    },
+    {
+      "q": "How much does it cost to stitch my name?",
+      "a": "Name stitching is $8 per item."
+    },
+    {
+      "q": "How much is overnight shipping?",
+      "a": "Overnight shipping is $20, and free for Gold members."
+    },
+    {
+      "q": "Does my cart qualify for free shipping?",
+      "a": "Orders over $75 ship free with standard shipping."
+    }
+  ],
+  "timing": [
+    {
+      "q": "When does the spring collection drop?",
+      "a": "The spring collection launches on March 1."
+    },
+    {
+      "q": "When does the local store open?",
+      "a": "Our stores are open 10am to 8pm, Monday to Saturday, and 11am to 6pm on Sunday."
+    },
+    {
+      "q": "When does the annual sale begin?",
+      "a": "The annual sale starts on the first Friday of December."
+    },
+    {
+      "q": "When do promo codes expire?",
+      "a": "Promo codes are valid for 7 days from the date they're issued."
+    }
+  ],
+  "membership": [
+    {
+      "q": "What are the membership levels?",
+      "a": "There are three levels: Bronze, Silver and Gold. Customers without a membership shop as guests."
+    },
+    {
+      "q": "How do I qualify for premium membership?",
+      "a": "Membership level is based on how much you spend each year. The current thresholds are on the membership page of our website."
+    },
+    {
+      "q": "What are the benefits of membership?",
+      "a": "Benefits grow with each level and include longer return windows, fee waivers and free overnight shipping for Gold members."
+    },
+    {
+      "q": "How long does membership last?",
+      "a": "Membership lasts 12 months and renews based on your spending."
+    }
+  ],
+  "policy": [
+    {
+      "q": "How do I cancel my subscription?",
+      "a": "You can cancel any time from your account settings. Cancelling stops future payments."
+    },
+    {
+      "q": "What happens if I'm late on a subscription payment?",
+      "a": "Your subscription stays active for a short grace period. After that, it's paused until the payment is made."
+    },
+    {
+      "q": "What is the refund policy?",
+      "a": "Approved refunds are issued to your original payment method, a gift card, account credit or a paper check."
+    },
+    {
+      "q": "What is the return policy?",
+      "a": "How long you have to return an item depends on your membership level. Gold members can return at any time; other levels have time limits, with exceptions for receipts and original packaging."
+    }
+  ]
+}

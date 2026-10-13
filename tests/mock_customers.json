@@ -41,7 +41,8 @@
           "requested_via": "chat",
           "amount": 45.0
         }
-      ]
+      ],
+      "username": "mpatel"
     },
     {
       "customer_id": "CUS-02",
@@ -65,7 +66,8 @@
           "shipping_status": "Delivered"
         }
       ],
-      "refunds": []
+      "refunds": [],
+      "username": "dokafor"
     },
     {
       "customer_id": "CUS-03",
@@ -105,7 +107,8 @@
           "shipping_status": "Delivered"
         }
       ],
-      "refunds": []
+      "refunds": [],
+      "username": "lfischer"
     },
     {
       "customer_id": "CUS-04",
@@ -133,7 +136,8 @@
           "shipping_status": "Delivered"
         }
       ],
-      "refunds": []
+      "refunds": [],
+      "username": "srivera"
     }
   ]
 }
