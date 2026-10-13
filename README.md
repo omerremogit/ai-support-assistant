@@ -11,6 +11,10 @@ guide, a full set of BA deliverables, an ROI model, and a working prototype test
 **Author:** Mohammed Omer Ahmed  |  **Tools:** Python, pandas, Jira, Excel, draw.io / Mermaid,
 FastAPI, Claude API
 
+**[▶ Try the live demo](https://ai-support-assistant-424d.onrender.com/)** (free hosting, so the first
+load can take about a minute while the app wakes up). Click **Use** next to a test customer to verify
+in the chat.
+
 ![The prototype: a customer chat on the left, and on the right how the assistant reached each reply](diagrams/prototype_chat.png)
 
 > The company, Harbor & Thread, is fictional. The conversations and agent policies are real, from

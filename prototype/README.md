@@ -1,5 +1,7 @@
 # Prototype: Harbor & Thread AI Support Assistant
 
+**Live demo:** https://ai-support-assistant-424d.onrender.com/ (hosted on Render's free tier; the first load can take about a minute)
+
 A working prototype of the pilot described in the [BRD](../docs/05_requirements_BRD.md), built to
 run the [test plan](../docs/07_test_plan.md) against a real AI model.
 
@@ -84,7 +86,7 @@ Useful options: `--only TC-12,TC-18` reruns chosen tests, `--no-judge` skips the
 leaving out `--batch` skips TC-36 (550 real ABCD conversations, which needs the dataset in `data/`).
 A full run costs well under $1.
 
-## Deploy it online (Railway)
+## Deploy it online
 
 The repo has a `Dockerfile` at the top level, so Railway can build and run the app without extra setup.
 
